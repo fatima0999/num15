@@ -1,9 +1,16 @@
+// Obtenemos el elemento canvas del documento HTML
 var canvas=document.getElementById("gameCanvas");
+// Obtenemos el contexto 2D del canvas
 var ctx=canvas.getContext("2d");
+// Definimos las propiedades del jugador
 var player={x:canvas.width/2, y: canvas.hidden /2,size:40};
+// Arreglo para almacenar las balas
 var bullets=[];
+// Arreglo para almacenar las balas
 var enemies=[];
+// Generamos 10 enemigos con posiciones y tamaños aleatorios
 for(var i=0; i<10; i++){
+     // Posición x aleatoria dentro del ancho del canvas
     enemies.push({
         //numero aleatorio entre 0 y el ancho del calvas
         x: Math.random()*canvas.width,
@@ -11,6 +18,7 @@ for(var i=0; i<10; i++){
         y:(Math.random()* canvas.hidden)/2,size:40,
     });
 }
+// Puntuación inicial del jugador
 var score=0;
 //creamos una imagen nueva para la nave 
 var naveImg=new Image();
@@ -26,11 +34,13 @@ naveImg.onload=function(){
 enemyImg.onload=function(){
     requestAnimationFrame(gameLoop);
 };
+// Función principal del bucle del juego
 function gameLoop(){
     player .x=Math.max(0,Math.min(canvas.width-player.size,player.x));
     player.y=Math.max(0,Math.min(canvas.height -player.size,player.y));
     ctx.clearRect(0,0,canvas.width ,canvas.height);
     ctx.drawImage(naveImg,player.x,player.y,player.size,player.size);
+    // Limitamos la posición del jugador dentro de los límites del canvas
     for (var i=0; i<bullets.length; i++){
         bullets[i].y -=5;
         ctx.fillRect(bullets[i].x,bullets[i].y,bullets[i].size,bullets[i].size);
